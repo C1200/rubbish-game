@@ -136,7 +136,7 @@ a {
         transform: translate(0, 0) rotate(0deg);
     }
     100% {
-        transform: translate(600px, 0) rotate(360deg);
+        transform: translate(630px, 0) rotate(360deg);
     }
 }
 
