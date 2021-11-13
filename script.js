@@ -6,17 +6,30 @@ var rubbishImgs = [
 ];
 
 var counter = parseInt(localStorage.getItem("highscore") ?? "0");
-var totalCPS = parseInt(localStorage.getItem("cps") ?? "0");
+var inflation = JSON.parse(localStorage.getItem("inflation") ?? "{}");
 localStorage.setItem("highscore", counter);
-localStorage.setItem("cps", totalCPS);
+localStorage.setItem("inflation", JSON.stringify(inflation));
 updateCounter();
+updateShop();
 
 function updateCounter() {
     var cs = document.getElementsByClassName("counter");
+
     for (var c of cs) {
         c.innerText = `${counter}`
             .replace(/,/g, "")
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+}
+
+function updateShop() {
+    var si = document.getElementsByClassName("item");
+
+    for (var i of si) {
+        i.getElementsByClassName("price")[0].innerHTML =
+            "$" +
+            parseInt(i.getAttribute("data-price")) *
+                ((inflation[i.id] ?? 0) + 1);
     }
 }
 
@@ -46,23 +59,37 @@ function donate(val, rubbishDelay) {
     }
 }
 
-function buy(price, cps) {
+function buy(elem) {
+    var price =
+        parseInt(document.getElementById(elem.id).getAttribute("data-price")) *
+            (inflation[elem.id] ?? 0) +
+        1;
+
     if (price > counter) return alert("You don't have enough cash!");
+
     counter -= price;
-    totalCPS += cps;
-    localStorage.setItem("cps", totalCPS);
+    inflation[elem.id] ? inflation[elem.id]++ : (inflation[elem.id] = 1);
+
     localStorage.setItem("highscore", counter);
+    localStorage.setItem("inflation", JSON.stringify(inflation));
+
     updateCounter();
+    updateShop();
 }
 
 function reset() {
     var conf = confirm("Are you sure you want to reset?");
+
     if (conf) {
         counter = 0;
-        totalCPS = 0;
-        localStorage.setItem("highscore", counter);
-        localStorage.setItem("cps", totalCPS);
+        inflation = {};
+
+        localStorage.setItem("highscore", "0");
+        localStorage.setItem("inflation", "{}");
+
         updateCounter();
+        updateShop();
+
         for (var r of document.getElementsByClassName("rubbish")) {
             r.remove();
         }
@@ -86,6 +113,18 @@ function openShop() {
         : s.classList.add("open");
 }
 
-setInterval(() => {
+setInterval(async () => {
+    var totalCPS = 0;
+
+    Object.keys(inflation)
+        .map(
+            (i) =>
+                parseInt(document.getElementById(i).getAttribute("data-cps")) *
+                inflation[i]
+        )
+        .forEach((i) => {
+            totalCPS += i;
+        });
+
     donate(totalCPS, true);
 }, 1000);
