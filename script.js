@@ -1,3 +1,10 @@
+const rubbishImgs = [
+    "images/rubbish1.png",
+    "images/rubbish2.png",
+    "images/rubbish3.png",
+    "images/rubbish4.png",
+];
+
 var counter = parseInt(localStorage.getItem("highscore") ?? "0");
 var totalCPS = parseInt(localStorage.getItem("cps") ?? "0");
 localStorage.setItem("highscore", counter);
@@ -17,10 +24,16 @@ function newRubbish(enableDelay) {
     if (document.getElementsByClassName("rubbish").length > 50) return;
     var r = new Image();
     r.className = "rubbish";
+
     r.style.top = Math.floor(Math.random() * 100) + "%";
+    r.style.animationName = `rubbishAnimation${
+        Math.floor(Math.random() * 4) + 1
+    }`;
     if (enableDelay) r.style.animationDelay = Math.random() * 6 + "s";
-    r.src = Math.random() > 0.5 ? "images/rubbish1.png" : "images/rubbish2.png";
+
+    r.src = rubbishImgs[Math.floor(Math.random() * rubbishImgs.length)];
     r.onanimationend = () => r.remove();
+
     document.getElementsByClassName("clicker")[0].append(r);
 }
 

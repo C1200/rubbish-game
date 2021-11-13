@@ -131,7 +131,7 @@ a {
     font-weight: bold;
 }
 
-@keyframes rubbishAnimation {
+@keyframes rubbishAnimation1 {
     0% {
         transform: translate(0, 0) rotate(0deg);
     }
@@ -140,8 +140,35 @@ a {
     }
 }
 
+@keyframes rubbishAnimation2 {
+    0% {
+        transform: translate(0, 0) rotate(90deg);
+    }
+    100% {
+        transform: translate(640px, 0) rotate(360deg);
+    }
+}
+
+@keyframes rubbishAnimation3 {
+    0% {
+        transform: translate(0, 0) rotate(180deg);
+    }
+    100% {
+        transform: translate(650px, 0) rotate(360deg);
+    }
+}
+
+@keyframes rubbishAnimation4 {
+    0% {
+        transform: translate(0, 0) rotate(360deg);
+    }
+    100% {
+        transform: translate(660px, 0) rotate(0deg);
+    }
+}
+
 .rubbish {
-    animation: rubbishAnimation 4s;
+    animation-duration: 4s;
     position: absolute;
     left: -25px;
     height: 20px;
