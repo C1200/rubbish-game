@@ -41,6 +41,21 @@ a {
     top: 0;
 }
 
+.clicker.amogus {
+    background: url(images/amogus.png);
+}
+
+.clicker.amogus .background-top,
+.clicker.amogus .background-top-color {
+    display: none;
+}
+
+.clicker.amogus .message,
+.clicker.amogus .counter,
+.clicker.amogus .counter-sub {
+    color: #fff;
+}
+
 .clicker .container {
     position: absolute;
     top: 200px;

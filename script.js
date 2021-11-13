@@ -1,4 +1,4 @@
-const rubbishImgs = [
+var rubbishImgs = [
     "images/rubbish1.png",
     "images/rubbish2.png",
     "images/rubbish3.png",
@@ -67,6 +67,16 @@ function reset() {
             r.remove();
         }
     }
+}
+
+function amogus() {
+    rubbishImgs = [
+        "images/amogus1.png",
+        "images/amogus2.png",
+        "images/amogus3.png",
+        "images/amogus4.png",
+    ];
+    document.getElementsByClassName("clicker")[0].classList.add("amogus");
 }
 
 function openShop() {
