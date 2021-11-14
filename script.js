@@ -1,3 +1,5 @@
+const version = "1.0.5";
+
 var rubbishImgs = [
     "images/rubbish1.png",
     "images/rubbish2.png",
@@ -5,12 +7,16 @@ var rubbishImgs = [
     "images/rubbish4.png",
 ];
 
-var counter = parseInt(localStorage.getItem("highscore") ?? "0");
-var inflation = JSON.parse(localStorage.getItem("inflation") ?? "{}");
+var counter = parseInt(localStorage.getItem("highscore") || "0");
+var inflation = JSON.parse(localStorage.getItem("inflation") || "{}");
 localStorage.setItem("highscore", counter);
 localStorage.setItem("inflation", JSON.stringify(inflation));
 updateCounter();
 updateShop();
+
+function debug() {
+    alert([`RG Version: ${version}`, `User Agent: ${navigator.userAgent}`]);
+}
 
 function updateCounter() {
     var cs = document.getElementsByClassName("counter");
@@ -29,7 +35,7 @@ function updateShop() {
         i.getElementsByClassName("price")[0].innerHTML =
             "$" +
             parseInt(i.getAttribute("data-price")) *
-                ((inflation[i.id] ?? 0) + 1);
+                ((inflation[i.id] || 0) + 1);
     }
 }
 
@@ -62,7 +68,7 @@ function donate(val, rubbishDelay) {
 function buy(elem) {
     var price =
         parseInt(document.getElementById(elem.id).getAttribute("data-price")) *
-            (inflation[elem.id] ?? 0) +
+            (inflation[elem.id] || 0) +
         1;
 
     if (price > counter) return alert("You don't have enough cash!");
