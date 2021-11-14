@@ -1,4 +1,4 @@
-# Rubbish Game
+![Rubbish Game](https://c1200.js.org/rubbish-game/images/itch-banner.png)
 
 A cookie clicker inspired game for [@PolyMarsDev](https://github.com/PolyMarsDev)'s [#SeaJam](https://itch.io/jam/seajam)
 
