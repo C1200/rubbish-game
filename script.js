@@ -1,4 +1,4 @@
-const version = "1.0.5";
+const version = "1.0.6";
 
 var rubbishImgs = [
     "images/rubbish1.png",
@@ -68,19 +68,20 @@ function donate(val, rubbishDelay) {
 function buy(elem) {
     var price =
         parseInt(document.getElementById(elem.id).getAttribute("data-price")) *
-            (inflation[elem.id] || 0) +
-        1;
+        ((inflation[elem.id] || 0) + 1);
 
-    if (price > counter) return alert("You don't have enough cash!");
+    if (price > counter) {
+        alert("You don't have enough cash!");
+    } else {
+        counter -= price;
+        inflation[elem.id] ? inflation[elem.id]++ : (inflation[elem.id] = 1);
 
-    counter -= price;
-    inflation[elem.id] ? inflation[elem.id]++ : (inflation[elem.id] = 1);
+        localStorage.setItem("highscore", counter);
+        localStorage.setItem("inflation", JSON.stringify(inflation));
 
-    localStorage.setItem("highscore", counter);
-    localStorage.setItem("inflation", JSON.stringify(inflation));
-
-    updateCounter();
-    updateShop();
+        updateCounter();
+        updateShop();
+    }
 }
 
 function reset() {
